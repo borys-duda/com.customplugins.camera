@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.customplugins.camera"
+    version="1.4">
+
+<engines>
+    <engine name="cordova" version=">=3.1.0" />
+</engines>
+
+<js-module src="www/js/customcamera.js" name="customCamera">
+    <clobbers target="navigator.customCamera" />
+</js-module>
+
+<asset src="www/js/customcamera.js" target="js/customcamera.js" />
+<asset src="res/cameraoverlay/border_bottom_left.png" target="img/cameraoverlay/border_bottom_left.png" />
+<asset src="res/cameraoverlay/border_bottom_right.png" target="img/cameraoverlay/border_bottom_right.png" />
+<asset src="res/cameraoverlay/border_top_left.png" target="img/cameraoverlay/border_top_left.png" />
+<asset src="res/cameraoverlay/border_top_right.png" target="img/cameraoverlay/border_top_right.png" />
+<asset src="res/cameraoverlay/capture_button_pressed.png" target="img/cameraoverlay/capture_button_pressed.png" />
+<asset src="res/cameraoverlay/capture_button.png" target="img/cameraoverlay/capture_button.png" />
+
+
+<platform name="ios">
+    <config-file target="config.xml" parent="/*">
+        <feature name="CustomCamera">
+            <param name="ios-package" value="CustomCamera" />
+        </feature>
+    </config-file>
+    <framework src="AVFoundation.framework" />
+    <header-file src="src/ios/CustomCamera.h" />
+    <source-file src="src/ios/CustomCamera.m" />
+    <header-file src="src/ios/AVCamCaptureManager.h" />
+    <source-file src="src/ios/AVCamCaptureManager.m" />
+    <header-file src="src/ios/CustomCameraViewController.h" />
+    <source-file src="src/ios/CustomCameraViewController.m" />
+</platform>
+
+<platform name="android">
+    <config-file target="res/xml/config.xml" parent="/*">
+        <feature name="CustomCamera">
+            <param name="android-package" value="com.customplugins.camera.CustomCamera"/>
+        </feature>
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/*">
+        <uses-permission android:name="android.permission.CAMERA" />
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        <uses-feature android:name="android.hardware.camera" android:required="true" />
+        <uses-feature android:name="android.hardware.camera.autofocus" android:required="true" />
+    </config-file>
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+        <activity android:name="com.customplugins.camera.CustomCameraActivity" android:screenOrientation="portrait" android:configChanges="orientation">
+        </activity>
+    </config-file>
+    <source-file src="src/com/customplugins/camera/CustomCamera.java" target-dir="src/com/customplugins/camera" />
+    <source-file src="src/com/customplugins/camera/CustomCameraActivity.java" target-dir="src/com/customplugins/camera" />
+    <source-file src="src/com/customplugins/camera/CustomCameraPreview.java" target-dir="src/com/customplugins/camera" />
+
+</platform>
+
+</plugin>
